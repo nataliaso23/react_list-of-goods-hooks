@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
+
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -55,7 +56,7 @@ export const App: React.FC = () => {
 
   const goods = getPrepareGoods(goodsFromServer, sortQuery, isReversed);
 
-  const handleSortAlphabet = () => {
+  const sortGoodsAlphabetically = () => {
     setSortQuery(prev => {
       if (prev === SortBy.ALPHABET) {
         return SortBy.INITIAL;
@@ -65,7 +66,7 @@ export const App: React.FC = () => {
     });
   };
 
-  const handleSortLength = () => {
+  const sortGoodsByLength = () => {
     setSortQuery(prev => {
       if (prev === SortBy.LENGTH) {
         return SortBy.INITIAL;
@@ -87,8 +88,9 @@ export const App: React.FC = () => {
           type="button"
           className={cn('button is-info', {
             'is-light': sortQuery !== SortBy.ALPHABET,
+            'is-active': sortQuery === SortBy.ALPHABET, // Marcação do botão ativo
           })}
-          onClick={handleSortAlphabet}
+          onClick={sortGoodsAlphabetically}
         >
           Sort alphabetically
         </button>
@@ -96,11 +98,13 @@ export const App: React.FC = () => {
           type="button"
           className={cn('button is-success', {
             'is-light': sortQuery !== SortBy.LENGTH,
+            'is-active': sortQuery === SortBy.LENGTH, // Marcação do botão ativo
           })}
-          onClick={handleSortLength}
+          onClick={sortGoodsByLength}
         >
           Sort by length
         </button>
+
         <button
           type="button"
           className={cn('button is-warning', {
